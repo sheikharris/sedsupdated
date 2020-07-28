@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="images/Webalys-Kameleon.pics-Food-Dome.ico"/>
+    <link href="{% static 'css/homestyle.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/seds_biostyle.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container my-5">
+        <form action="bio" method="POST">
+            {% csrf_token %}
+            <body class="container" style="padding-top:20px;">
+
+            <div class="dropdown">
+                <div class="select">
+                    <table cellspacing="20">
+                        <tr>
+                            <td><select class="sh btn btn-primary dropdown-toggle" name="bac">
+                                <option value="all">Select a Batch</option>
+                                <option value="all">All</option>
+                                {% for i in drop_bac %}
+                                    <option value="{{ i.batch }}">{{ i.batch }}</option>
+
+                                {% endfor %}
+
+                            </select>
+                            </td>
+                            <td>
+                                <input class="sh btn btn-success" type="submit" value="search">
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+            </div>
+        </form>
+
+        {% for i in bio %}
+            <div>
+                <table>
+                    <tr>
+                        <td class="txtalign">
+                            <b>{{ i.name }}</b>
+                            <br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br/>
+                            <img class="image" src="{{ i.img }}" alt="SOrry Y R not luckly">
+                            <br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="txtalign">
+                            <b>{{ i.batch }}<br>{{ i.Position }}<br>{{ i.dept }}</b>
+                            <br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br/>
+                            <p>
+                                {{ i.story }}<br>
+                            <hr color="orange">
+                            <i><b>-" {{ i.quotes }}"</b></i>
+                            </p>
+                        </td>
+                    </tr>
+                    <hr color="green">
+                </table>
+            </div>
+            </div>
+        {% endfor %}
+{% endblock content %}
